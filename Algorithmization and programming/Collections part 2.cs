@@ -1,16 +1,10 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Diagnostics.Metrics;
-using System.Reflection;
-using System.Timers;
-using System.Transactions;
 
-class Methods
-{
-    static void Main()
-    {
+class Program {
+	//hashSet. 
+  static void Main(){
         Console.Clear();
         int i = 0;
         Random rnd = new Random();
@@ -22,8 +16,11 @@ class Methods
         ArrayList array_list = new ArrayList(n);
         Hashtable hash_table = new Hashtable(n);
         SortedList sorted_list = new SortedList(n);
-        Stack my_steck = new Stack(n);
-				HashSet<string> my_set = new HashSet<string>();
+        Stack my_steck = new Stack(n); //SKDSKJHDKSJDHKSJDHKSDHKSDHKSDK
+        Queue<string> my_queue = new Queue<string>(n);
+        List<string> my_list = new List<string>();
+				Dictionary<string, string> my_dict = new Dictionary<string, string>();
+				SortedDictionary<string, string> my_sortedDict = new SortedDictionary<string, string>();
 
         string[] words = { "Game", "Vpn", "Free", "Chat", "Assasins", "Creed", "Crysis", "Botle","Soda","Milk","Play","Windows","Vinner","Eat","Cat","Dog","Block","Figma","Film","End"};
         string[] value = { "YES", "NO","None"};
@@ -43,7 +40,10 @@ class Methods
             my_steck.Push(words[i]);
             hash_table.Add(words[i], value[index]);
             sorted_list.Add(words[i], value[index]);
-						my_set.Add(words[i]);
+            my_queue.Enqueue(words[i]);
+            my_list.Add(words[i]);
+						my_dict.Add(words[i], value[index]);
+						my_sortedDict.Add(words[i], value[index]);
             i++;
         }
         Console.WriteLine("|Array|"); PrintArray(array);
@@ -51,12 +51,13 @@ class Methods
         Console.WriteLine("|Hashtable|"); PrintArray(hash_table);
         Console.WriteLine("|SortedList|"); PrintArray(sorted_list);
         Console.WriteLine("|Stack|"); PrintArray(my_steck);
-				Console.WriteLine("|HashSet|"); PrintArray(my_set);
-
-        while (true)
-        {
-            Console.WriteLine("Меню:");
-            Console.WriteLine("1. Методы Array\n2. Методы ArrayList\n3. Методы Hashtable\n4. Методы SortedList\n5. Методы Stack\n6. Методы HashSet\n");
+        Console.WriteLine("|Queue|"); PrintArray(my_queue);
+        Console.WriteLine("|List|"); PrintArray(my_list);
+				Console.WriteLine("|Dictionary|"); PrintArray(my_dict);
+				Console.WriteLine("|SortedDictionary|"); PrintArray(my_sortedDict);
+        
+        Console.WriteLine("Меню:");
+        Console.WriteLine("1. Методы Array\n2. Методы ArrayList\n3. Методы Hashtable\n4. Методы SortedList\n5. Методы Stack\n6. Методы Queue\n7. Методы List\n8. Методы Dictionary\n9. Методы SortedDictionary\n");
             Console.Write("Выберите нужное действие: ");
             string step = Console.ReadLine();
             Console.WriteLine();
@@ -67,31 +68,36 @@ class Methods
                     array_methods(array);
                     break;
                 case "2":
-                    array_list_methods(array_list,n);
+                    array_list_methods(array_list, n);
                     break;
                 case "3":
-                    hash_table_methods(hash_table,n);
+                    hash_table_methods(hash_table);
                     break;
                 case "4":
-                    sorted_list_methods(sorted_list,n);
+                    sorted_list_methods(sorted_list);
                     break;
-            		case "5":
-                    stack_worker(my_steck,n);
+            case "5":
+                    stack_worker(my_steck);
                     break;
-								case "6":
-										hashset_worker(my_set);
+            case "6":
+                    queue_worker(my_queue);
+                    break;
+						case "7":
+                    list_methods(my_list);
 										break;
-                default:
+						case "8":
+                    dict_methods(my_dict);
+										break;
+            case "9":
+                    soted_dict_methods(my_sortedDict);
+										break;
+            default:
                     Console.WriteLine("Введите правильную цифру: ");
                     fl = false;
                     break;
             }
             if (fl) { Console.Clear(); break; }
         }
-
-
-    }
-
 
     static void array_methods(Array arr)
     {
@@ -358,8 +364,7 @@ class Methods
     }
 
 
-    static void hash_table_methods(Hashtable arr,int n)
-    {
+    static void hash_table_methods(Hashtable arr){
         Console.Clear();
         while (true)
         {
@@ -485,12 +490,11 @@ class Methods
                     Console.Clear();
                     Console.WriteLine("Неверный ввод данных. Пожалуйста, повторите попытку!");
                     break;
-            }
-
+          }
         }
-    }
+      }
 
-    static void sorted_list_methods(SortedList arr, int n)
+    static void sorted_list_methods(SortedList arr)
     {
         Console.Clear();
         while (true)
@@ -637,12 +641,13 @@ class Methods
 
         }
     }
-  static void stack_worker(Stack arr,int n){
+  	
+		static void stack_worker(Stack arr){
     Console.Clear();
     while (true)
         {
           Console.WriteLine("Меню:");
-          Console.WriteLine("1. Узнать длину Stack\n2. Определить, входит ли элемент в коллекцию Stack.\n3. Удалить объект, находящийся в самом начале Stack\n4. Добавить элемент в верхушку стека\n5. Вывести первый элемент из стека без его удаления\n6. Проверить предложение на баланс скобок\n7. Узнать тип данных в Stack");
+          Console.WriteLine("1. Узнать длину Stack\n2. Определить, входит ли элемент в коллекцию Stack.\n3. Удалить объект, находящийся в самом начале Stack\n4. Добавить элемент в верхушку стека\n5. Вывести первый элемент из стека без его удаления\n6. Проверить предложение на баланс скобок\n7. Узнать тип данных в Stack\n8. Начать заново");
           Console.Write("Выберите метод: ");
           string choice = Console.ReadLine();
           switch (choice){
@@ -676,7 +681,7 @@ class Methods
             string word_insert = Console.ReadLine();
             arr.Push(word_insert);
             Console.WriteLine($"Слово {word_insert} добавлено в Stack!");
-            Console.WriteLine("\nНовый Stack:");
+            Console.WriteLine("\nНовый Stack:\n");
             PrintArray(arr);
             Console.Write("Введите y для выхода: ");
             if (Console.ReadLine().ToLower() == "y") Console.Clear();
@@ -702,96 +707,358 @@ class Methods
             Console.Write("Введите y для выхода: ");
             if (Console.ReadLine().ToLower() == "y") Console.Clear();
             break;
+          case "8":
+            Main();
+            break;
+          default:
+            Console.Clear();
+            Console.WriteLine("Неверный ввод данных. Пожалуйста, повторите попытку!");
+            break;
+              
           }
           
         }
     }
-	static void hashset_worker(HashSet<string> arr){
-		Console.Clear();
-    while (true)
-        {
-          Console.WriteLine("Меню:");
-          Console.WriteLine("1. Узнать длину HashSet\n2. Определить, входит ли элемент в коллекцию HashSet.\n3. Очистить множество\n4. Вывести хэш-функцию\n5. Удалить элемент\n6. Попытаться найти элемент\n");
-          Console.Write("Выберите метод: ");
-          string choice = Console.ReadLine();
-          switch (choice){
-          case "1":
+    static void queue_worker(Queue<string> arr)
+    {
+      Console.Clear();
+      while (true)
+          {
+            Console.WriteLine("Меню:");
+            Console.WriteLine("1. Узнать длину Queue\n2. Определить, входит ли элемент в коллекцию Queue.\n3. Отчистить очередь\n4. Удалить первый элемент очереди\n5. Добавить объект в конец коллекции Queue\n6. Вывести первый элемент из очереди без его удаления.\n7. Узнать тип данных в Queue\n8. Вывести очередь\n9. Начать заново");
+            Console.Write("Выберите метод: ");
+            string choice = Console.ReadLine();
+            switch (choice)
+            {
+            case "1":
               Console.Clear();
-              Console.WriteLine($"Длина Stack: {arr.Count}\n");
+              Console.WriteLine($"Длина Queue: {arr.Count}\n");
               Console.Write("Введите y для выхода: ");
               if (Console.ReadLine().ToLower() == "y") Console.Clear();
               break;
-          case "2":
-             Console.Clear();
-             Console.Write("Введите значение для поиска: ");
-             var value_search = Console.ReadLine();
-             if (arr.Contains(value_search))
-                 Console.WriteLine("Такое значение существует!");
-             else
-                 Console.WriteLine("Такой значение не существует!");
-            Console.Write("\nВведите y для выхода: ");
-            if (Console.ReadLine().ToLower() == "y") Console.Clear();
+            case "2":
+              Console.Clear();
+              Console.Write("Введите значение для поиска: ");
+              var value_search = Console.ReadLine();
+              if (arr.Contains(value_search))
+                  Console.WriteLine("Такое значение существует!");
+              else
+                  Console.WriteLine("Такой значение не существует!");
+              Console.Write("\nВведите y для выхода: ");
+              if (Console.ReadLine().ToLower() == "y") Console.Clear();
+              break;
+            case "3":
+              Console.Clear();
+              arr.Clear();
+              Console.Write("Очередь теперь пуста!");
+              Console.Write("\nВведите y для выхода: ");
+              if (Console.ReadLine().ToLower() == "y") Console.Clear();
+              break;
+            case "4":
+              Console.Clear();
+              var word_delete = arr.Dequeue();
+              Console.WriteLine($"Слово {word_delete} удалено из начала Queue!");
+              Console.Write("\nВведите y для выхода: ");
+              if (Console.ReadLine().ToLower() == "y") Console.Clear();
+              break;
+            case "5":
+              Console.Clear();
+              Console.Write("Введите слово, которые Вы хотите добавить: ");
+              string word_insert = Console.ReadLine();
+              arr.Enqueue(word_insert);
+              Console.WriteLine($"Слово {word_insert} добавлено в Queue!");
+              Console.WriteLine("\nНовый Stack:");
+              PrintArray(arr);
+              Console.Write("Введите y для выхода: ");
+              if (Console.ReadLine().ToLower() == "y") Console.Clear();
             break;
-          case "3":
-            Console.Clear();
-						arr.Clear();
-            Console.Write("\nВведите y для выхода: ");
-            if (Console.ReadLine().ToLower() == "y") Console.Clear();
+            case "6":
+              Console.Clear();
+              Console.WriteLine(arr.Peek());
+              Console.Write("\nВведите y для выхода: ");
+              if (Console.ReadLine().ToLower() == "y") Console.Clear();
             break;
-          case "4":
-            Console.Clear();
-            Console.Write(arr.GetHashCode());
-            Console.Write("Введите y для выхода: ");
-            if (Console.ReadLine().ToLower() == "y") Console.Clear();
-            break;
-          case "5":
-            Console.Clear();
-						Console.WriteLine("Введите объект для удаления:");
-						string objec = Console.ReadLine();
-            Console.WriteLine(arr.Remove(objec));
-						PrintArray(arr);
-            Console.Write("\nВведите y для выхода: ");
-            if (Console.ReadLine().ToLower() == "y") Console.Clear();
-            break;
-          case "6":
-            Console.Clear();
-            Console.Write("Введите элемент для поиска: ");
-            string sentence = Console.ReadLine();
-            Console.WriteLine(arr.TryGetValue(sentence, out sentence));
-            Console.Write("\nВведите y для выхода: ");
-            if (Console.ReadLine().ToLower() == "y") Console.Clear();
-            break;
-        }
-	}
+            case "7":
+              Console.Clear();
+              Console.Write($"Тип элементов: {arr.GetType()}\n\n");
+              Console.Write("Введите y для выхода: ");
+              if (Console.ReadLine().ToLower() == "y") Console.Clear();
+              break;
+            case "8":
+              Console.Clear();
+              Console.Write("Очередь:\n");
+              PrintArray(arr);
+              Console.Write("\nВведите y для выхода: ");
+              if (Console.ReadLine().ToLower() == "y") Console.Clear();
+              break;
+            case "9":
+              Main();
+              break;
+            default:
+              Console.Clear();
+              Console.WriteLine("Неверный ввод данных. Пожалуйста, повторите попытку!");
+              break;
+          }
+    }       
 
-  static bool Brackets(string a)
+    static void list_methods(List<string> arr)
     {
-        Stack b = new Stack();
-        char[] OpenBrackets = { '(', '{', '[', '<' };
-        char[] CloseBrackets = { ')', '}', ']', '>' };
-        char e = ' ';
-        foreach (char i in a)
+        Console.Clear();
+        while (true)
         {
-            if (Array.Exists(OpenBrackets, element => element == i))
+            Console.WriteLine("Меню:");
+            Console.WriteLine("1. Узнать длину списка\n2. Добавить элемент в конец списка\n3. Проверка существования объекта\n4. Узнать тип данных в списке\n5. Поиск первого вхождения элемента \n6. Поиск последнего вхождения элемента \n7. Удалить первое вхождение элемента \n8. Очищение списка\n9. Удаление по индексу\n10. Начать заново");
+            Console.Write("Выберите метод: ");
+            string choice = Console.ReadLine();
+            switch (choice)
             {
-                b.Push(i);
+                case "1":
+                    Console.Clear();
+                    Console.WriteLine($"Длина SortedList: {arr.Count}\n");
+                    Console.Write("Введите y для выхода: ");
+                    if (Console.ReadLine().ToLower() == "y") Console.Clear();
+                    break;
+                case "2":
+                    Console.Clear();
+                    Console.WriteLine("\nВведите элемент, который хотите добавить:");
+                    arr.Add(Console.ReadLine());
+                    Console.WriteLine("Получившийся список:", arr );
+                    Console.Write("\nВведите y для выхода: ");
+                    if (Console.ReadLine().ToLower() == "y") Console.Clear();
+                    break;
+                case "3":
+                    Console.Clear();
+                    Console.WriteLine("\nВведите элемент, который вы хотите найти:");
+                    if (arr.Contains(Console.ReadLine())) {
+                      Console.WriteLine("\nЭлемент находится в списке");
+                    }
+                    else{
+                      Console.WriteLine("\nЭлемент не входит в список");
+                    }
+                    Console.Write("\nВведите y для выхода: ");
+                    if (Console.ReadLine().ToLower() == "y") Console.Clear();
+                    break;
+                case "4":
+                    Console.Clear();
+                    Console.Write($"Тип элементов: {arr.GetType()}\n\n");
+                    Console.Write("\nВведите y для выхода: ");
+                    if (Console.ReadLine().ToLower() == "y") Console.Clear();
+                    break;
+                case "5":
+                    Console.Clear();
+                    Console.WriteLine("\nВведите элемент:");
+                    Console.WriteLine($"Номер элемента: {arr.IndexOf(Console.ReadLine())}\n\n");
+                    Console.Write("\nВведите y для выхода: ");
+                    if (Console.ReadLine().ToLower() == "y") Console.Clear();
+                    break;
+                case "6":
+                    Console.Clear();
+                    Console.WriteLine("\nВведите элемент:");
+                    Console.WriteLine($"Номер элемента: {arr.LastIndexOf(Console.ReadLine())}\n\n");
+                    Console.Write("\nВведите y для выхода: ");
+                    if (Console.ReadLine().ToLower() == "y") Console.Clear();
+                    break;
+                case "7":
+                    Console.Clear();
+                    Console.WriteLine("\nВведите элемент:");
+                    Console.WriteLine($"Номер элемента: {arr.Remove(Console.ReadLine())}\n\n");
+                    Console.Write("Введите y для выхода: ");
+                    if (Console.ReadLine().ToLower() == "y") Console.Clear();
+                    break;
+                case "8":
+                    Console.Clear();
+                    Console.Write("Вы действительно хотите отчистить SortedList? yES/NO: ");
+                    if (Console.ReadLine().ToLower() == "yes")
+                    {
+                        arr.Clear();
+                        Console.WriteLine("List отчищена!");
+                    }
+                    Console.Write("\nВведите y для выхода: ");
+                    if (Console.ReadLine().ToLower() == "y") Console.Clear();
+                    break;
+                case "9":
+                    Console.Clear();
+                    Console.WriteLine("\nВведите индекс:");
+                    int nummmm = Int32.Parse(Console.ReadLine());
+                    arr.RemoveAt(nummmm);
+                    Console.Write("\nВведите y для выхода: ");
+                    if (Console.ReadLine().ToLower() == "y") Console.Clear();
+                    break;
+                case "10":
+                    Main();
+                    break;
+                default:
+                    Console.Clear();
+                    Console.WriteLine("Неверный ввод данных. Пожалуйста, повторите попытку!");
+                    break;
             }
-            else if (b.Count > 0 && Array.Exists(CloseBrackets, element => element == i))
-            {
-                e = (char)b.Pop();
-                if (CloseBrackets[Array.FindIndex(OpenBrackets, element => element == e)] != i)
+
+        }
+    }
+		static void dict_methods(Dictionary<string, string> arr){
+      Console.Clear();
+      string choice;
+      while (true)
+      {       
+        Console.WriteLine("Меню:");
+        Console.WriteLine("1. Количество элементов\n2. Вывести значения\n3. Вывести ключи\n4. Добавить элемент\n5. Очистить словарь\n6. Поиск по ключу\n7. Поиск по значению\n8. Вывод строки со всеми элементами");
+        choice = Console.ReadLine();
+        switch(choice)
+          {
+          case "1":
+              Console.Clear();
+              Console.WriteLine($"Количество пар ключ-значение: {arr.Count}");
+              Console.Write("\nВведите y для выхода: ");
+              if (Console.ReadLine().ToLower() == "y") Console.Clear();
+                break;
+          case "2":
+              Console.Clear();
+              Console.WriteLine("Значения: ");
+              Dictionary<string, string>.ValueCollection valueColl = arr.Values;
+                foreach(string s in valueColl)
                 {
-                    return false;
+                Console.WriteLine($"{s}");
                 }
-            }
-        }
-        if (b.Count > 0)
-        {
-            return false;
-        }
-        return true;
-    }
-    static void PrintArray(Stack a)
+              Console.Write("\nВведите y для выхода: ");
+              if (Console.ReadLine().ToLower() == "y") Console.Clear();
+              break;
+          case "3":
+              Console.Clear();
+              Console.WriteLine("Ключи: ");
+              Dictionary<string, string>.KeyCollection keyColl = arr.Keys;
+              foreach(string s in keyColl)
+              {
+              Console.WriteLine($"{s}");
+              }
+              Console.Write("\nВведите y для выхода: ");
+              if (Console.ReadLine().ToLower() == "y") Console.Clear();
+                break;
+          case "4":
+              Console.Clear();
+              Console.WriteLine("Введите ключ, а затем значение");
+              string a = Console.ReadLine();
+              string b = Console.ReadLine();
+              arr.TryAdd(a, b);
+              Console.WriteLine("Выполнено!");
+              Console.Write("\nВведите y для выхода: ");
+              if (Console.ReadLine().ToLower() == "y") Console.Clear();
+                break;
+          case "5":
+              Console.Clear();
+              arr.Clear();
+              Console.WriteLine("Словарь очищен!");
+              Console.Write("\nВведите y для выхода: ");
+              if (Console.ReadLine().ToLower() == "y") Console.Clear();
+                break;
+          case "6":
+              Console.Clear();
+              Console.Write("Введите ключ для поиска: ");
+              var key_search_version_2 = Console.ReadLine();
+              if (arr.ContainsKey(key_search_version_2))
+                  Console.WriteLine("Такой ключ существует!");
+              else
+                  Console.WriteLine("Такой ключ не существует!");
+              Console.Write("\nВведите y для выхода: ");
+              if (Console.ReadLine().ToLower() == "y") Console.Clear();
+              break;
+          case "7":
+               Console.Clear();
+               Console.Write("Введите значение для поиска: ");
+               var value_search = Console.ReadLine();
+               if (arr.ContainsValue(value_search))
+                  Console.WriteLine("Такое значение существует!");
+               else
+                  Console.WriteLine("Такой значение не существует!");
+                  Console.Write("\nВведите y для выхода: ");
+               if (Console.ReadLine().ToLower() == "y") Console.Clear();
+                  break;
+          case "8":
+              Console.Clear();
+              Console.WriteLine(arr.ToString());
+              Console.Write("\nВведите y для выхода: ");
+              if (Console.ReadLine().ToLower() == "y") Console.Clear();
+                break;
+          case "9":
+              Main();
+              break;
+          default:
+              Console.Clear();
+              Console.WriteLine("Неверный ввод данных. Пожалуйста, повторите попытку!");
+              break;
+    		 }
+      }
+			}
+			
+		}
+		static void soted_dict_methods(SortedDictionary<string, string> arr){
+			string choice;
+			Console.WriteLine("1. Количество элементов\n2. Вывести значения\n3. Вывести ключи\n4. Добавить элемент\n5. Очистить словарь\n6. Поиск по ключу\n7. Поиск по значению\n8. Вывод строки со всеми элементами");
+			choice = Console.ReadLine();
+			switch(choice){
+			case "1":
+				Console.WriteLine($"Количество элементов: {arr.Count}");
+				break;
+			case "2":
+				Console.WriteLine("Ключи: ");
+				Dictionary<string, string>.ValueCollection keysColl = arr.Keys;
+				foreach(string s in valueColl)
+					{
+					Console.WriteLine($"{s}");
+					}
+				break;
+			case "3":
+				Console.WriteLine("Значения: ");
+				Dictionary<string, string>.ValueCollection valueColl = arr.Values;
+				foreach(string s in valueColl)
+					{
+					Console.WriteLine($"{s}");
+					}
+				break;
+			case "4":
+				Console.Clear();
+              Console.WriteLine("Введите ключ, а затем значение");
+              string a = Console.ReadLine();
+              string b = Console.ReadLine();
+              arr.TryAdd(a, b);
+              Console.Write("\nВведите y для выхода: ");
+              if (Console.ReadLine().ToLower() == "y") Console.Clear();
+        break;
+			case "5":
+				arr.Clear();
+				Console.WriteLine("Словарь очищен");
+				break;
+			case "6":
+              Console.Clear();
+              Console.Write("Введите ключ, который надо найти: ");
+              string c = Console.ReadLine();
+              Console.WriteLine(arr.ContainsKey(c));
+              Console.Write("\nВведите y для выхода: ");
+              if (Console.ReadLine().ToLower() == "y") Console.Clear();
+                break;
+          case "7":
+              Console.Clear();
+              Console.WriteLine("Введите значение, который надо найти");
+              string d = Console.ReadLine();
+              Console.WriteLine(arr.ContainsValue(d));
+              Console.Write("\nВведите y для выхода: ");
+              if (Console.ReadLine().ToLower() == "y") Console.Clear();
+                break;
+			case "8":
+              Console.Clear();
+              Console.WriteLine(arr.ToString());
+              Console.Write("\nВведите y для выхода: ");
+              if (Console.ReadLine().ToLower() == "y") Console.Clear();
+                break;
+      case "9":
+        Main();
+        break;
+      default:
+				Console.Clear();
+				Console.WriteLine("Неверный ввод данных. Пожалуйста, повторите попытку!");
+				break;
+			}
+		}
+  	static void PrintArray(Stack a)
     {
         foreach (var el in a)
         {
@@ -799,7 +1066,7 @@ class Methods
         }
         Console.WriteLine();
     }
-    static void PrintArray(Array a)
+  	static void PrintArray(Array a)
     {
         foreach (var el in a)
         {
@@ -807,7 +1074,15 @@ class Methods
         }
         Console.WriteLine();
     }
-    static void PrintArray(ArrayList arr)
+		static void PrintArray(List<string> a)
+    {
+        foreach (var el in a)
+        {
+            Console.WriteLine(el);
+        }
+        Console.WriteLine();
+    }
+  	static void PrintArray(ArrayList arr)
     {
         foreach (var el in arr)
         {
@@ -831,16 +1106,26 @@ class Methods
         }
         Console.WriteLine();
     }
-		static void PrintArray(HashSet<string> arr)
+		static void PrintArray(Dictionary<string, string> arr)
     {
-        foreach (var de in arr)
+        foreach (KeyValuePair<string, string> de in arr)
         {
-            Console.WriteLine($"{de}");
+            Console.WriteLine($"{de.Key}: {de.Value}");
         }
         Console.WriteLine();
     }
-    public static void Shuffle<T>(T[] array)
-    {
+		static void PrintArray(Queue<string> arr){
+			foreach (var obj in arr) Console.Write( "{0} ", obj);
+      Console.WriteLine();
+		}
+		static void PrintArray(SortedDictionary<string, string> arr){
+			foreach (KeyValuePair<string, string> de in arr)
+        {
+            Console.WriteLine($"{de.Key}: {de.Value}");
+        }
+        Console.WriteLine();
+		}
+    static void Shuffle<T>(T[] array){
         var random = new Random();
         for (int i = array.Length - 1; i > 0; i--)
         {
@@ -850,6 +1135,25 @@ class Methods
             array[j] = temp;
         }
     }
-   
-
+		static bool Brackets(string a){
+		Stack b = new Stack();
+		char[] OpenBrackets = {'(', '{', '[', '<'};
+		char[] CloseBrackets = {')', '}', ']', '>'};
+		char e = ' ';
+		foreach(char i in a){
+			if (Array.Exists(OpenBrackets, element => element == i)){
+				b.Push(i);
+			}
+			else if (b.Count > 0 && Array.Exists(CloseBrackets, element => element == i)){
+				e = (char)b.Pop();
+				if (CloseBrackets[Array.FindIndex(OpenBrackets, element => element == e)] != i){
+					return false;
+					}
+				}
+			}
+			if (b.Count > 0){
+				return false;
+				}
+			return true;
+			}
 }
