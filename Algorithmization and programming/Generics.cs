@@ -37,5 +37,14 @@ class Program {
 		}
 		ar.Remove(3);
 		Console.WriteLine(ar.GetByIndex(2));
+
+		Array<int> ari = new Array<int>(100);
+		for(var i = 0; i < ari.Length; i++){
+			ari.Set(i*i, i);
+		}
+		for(var i = 0; i < ari.Length; i++){
+			Console.Write(ari.GetByIndex(i) + " ");
+		}
+		
   }
 }
