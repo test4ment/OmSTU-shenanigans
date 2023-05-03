@@ -24,7 +24,7 @@ for num in numbers:
 	elif Fx == 0: locF = "S1"
 	elif Fx == a: locF = "S2"
 	
-	one_in_delta = 10
+	one_in_delta = 10 # Точность вычислений
 	
 	Arange = [i / one_in_delta for i in range(0, a * one_in_delta + 1)]
 	Brange = [i / one_in_delta for i in range(0, b * one_in_delta + 1)]
